@@ -3,7 +3,6 @@ import requests
 from requests.auth import HTTPBasicAuth
 from dateutil.parser import parse
 import json
-import time
 
 
 class JiraClient:
@@ -21,8 +20,8 @@ class JiraClient:
             if (method == 'get'):
                 return requests.get(url,
                                     auth=HTTPBasicAuth(self.jirauser,
-                                    self.jirapass),
-                                    headers=self.headers, params=payload)
+                                    self.jirapass), headers=self.headers,
+                                    params=payload)
             if (method == 'put'):
                 requests.put(url,
                              auth=HTTPBasicAuth(self.jirauser, self.jirapass),
@@ -70,6 +69,8 @@ class JiraClient:
         url = self.jiraURL + "/version/" + v_id
         return (self.restRequest(url, method, payload))
 
+    # This function was written to extend this class to find and assign
+    # attributes to jira users.
     def searchUser(self, s_str):
         payload = ''
         url = self.jiraURL + '/user/search?username=' + s_str
